@@ -1,121 +1,74 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
-import "./App.css";
+import { useEffect, useState } from "react";
+import { supabase } from "../utils/supabase.ts";
+
+interface Post {
+  id: string; // lub number, zależy co wybrałeś w Supabase
+  created_at: string;
+  title: string;
+  content: string;
+  image_url: string | null;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        setLoading(true);
+
+        // Pobieramy dane z tabeli 'posts'
+        const { data, error } = await supabase
+          .from("posts")
+          .select("*") // pobierz wszystkie kolumny
+          .order("created_at", { ascending: false }); // od najnowszych
+
+        if (error) throw error;
+        if (data) setPosts(data);
+      } catch (error: any) {
+        console.error("Błąd podczas pobierania artykułów:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getPosts();
+  }, []);
+
+  if (loading) return <p>Ładowanie najprawdziwszej prawdy...</p>;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>najprawdziwszaprawda.com deploy test</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+      <h1>Najprawdziwsza Prawda</h1>
 
-      <div className="ticks"></div>
+      {posts.length === 0 ? (
+        <p>Brak artykułów. Dodaj coś w panelu Supabase!</p>
+      ) : (
+        posts.map((post) => (
+          <article
+            key={post.id}
+            style={{ borderBottom: "1px solid #ccc", padding: "20px 0" }}
+          >
+            <h2>{post.title}</h2>
+            <small>
+              Opublikowano: {new Date(post.created_at).toLocaleDateString()}
+            </small>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            {/* Jeśli w bazie podasz link do mema z Storage, wyświetli się obrazek */}
+            {post.image_url && (
+              <img
+                src={post.image_url}
+                alt={post.title}
+                style={{ maxWidth: "100%", display: "block", margin: "15px 0" }}
+              />
+            )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+            <p>{post.content}</p>
+          </article>
+        ))
+      )}
+    </div>
   );
 }
 
