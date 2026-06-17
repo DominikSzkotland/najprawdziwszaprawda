@@ -1,0 +1,9 @@
+div.main {
+  text-align: center;
+  position: relative;
+}
+span.currentLinkName {
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-all;
+}
