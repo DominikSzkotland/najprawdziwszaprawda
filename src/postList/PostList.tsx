@@ -22,7 +22,8 @@ export default function PostsList() {
         const { data, error } = await supabase
           .from("posts")
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("created_at", { ascending: false })
+          .limit(50);
         if (error) throw error;
         if (data) setPosts(data);
       } catch (error: any) {

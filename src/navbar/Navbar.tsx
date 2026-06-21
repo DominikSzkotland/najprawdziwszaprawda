@@ -49,8 +49,8 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/sport" onClick={toggleMenu}>
-              Sport
+            <Link to="postsList" onClick={toggleMenu}>
+              Wszystkie posty
             </Link>
           </li>
           <li>
