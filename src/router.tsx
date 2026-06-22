@@ -5,6 +5,7 @@ import NewPost from "./newPost/NewPost";
 import NotFoundPage from "./notFoundPage/NotFoundPage";
 import PostsList from "./postList/PostList";
 import ProtectedRoute from "./ProtectedRoute";
+import LoginForm from "./loginForm/LoginForm";
 
 const router = createBrowserRouter([
   {
@@ -20,12 +21,16 @@ const router = createBrowserRouter([
         element: <PostsList />,
       },
       {
-        path: "profile",
-        element: <Profile />,
+        path: "login",
+        element: <LoginForm />,
       },
       {
         element: <ProtectedRoute />,
         children: [
+          {
+            path: "profile",
+            element: <Profile />,
+          },
           {
             path: "newPost",
             element: <NewPost />,

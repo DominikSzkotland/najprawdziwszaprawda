@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase.ts";
+import "./PostList.css";
 
 interface Post {
   id: string;
@@ -40,18 +41,22 @@ export default function PostsList() {
     return <p>Brak artykułów. Dodaj coś w panelu Supabase!</p>;
 
   return (
-    <>
+    <div className="postsContainer">
       {posts.map((post) => (
-        <article key={post.id}>
+        <article key={post.id} className="postCard">
           <h2>{post.title}</h2>
-          <small>
+
+          <div className="postMeta">
             Opublikowano: {new Date(post.created_at).toLocaleDateString()}
-          </small>
+          </div>
+
           {post.image_url && <img src={post.image_url} alt={post.title} />}
+
           <p>{post.content}</p>
-          <hr />
+
+          <hr className="postDivider" />
         </article>
       ))}
-    </>
+    </div>
   );
 }

@@ -2,126 +2,110 @@ html,
 body,
 .mainPage {
   width: 100%;
-  height: auto;
-  position: absolute;
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  background-color: #f9fafb;
 }
-nav {
-  position: relative;
+
+.contentArea {
+  padding: 24px;
+}
+
+nav.navigationMainBar {
   height: 56px;
-  background-color: cornflowerblue;
+  display: flex;
+  align-items: center;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-ul {
-  float: none;
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  width: 100%;
-  padding: 8px;
-  margin: 0;
-  list-style-type: none;
-  list-style-position: inside;
-  background-color: cornflowerblue;
-  z-index: 10;
-  top: 100%;
-}
-ul li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 8px 0;
-}
-ul li a:hover {
-  text-decoration: underline;
-  background-color: rgb(150, 180, 240);
-  cursor: pointer;
-}
-nav button.menuButton {
-  display: block;
-  position: relative;
+
+nav button {
   height: 56px;
   width: 56px;
-  border: 0;
-  border-radius: 0;
-  background-color: cornflowerblue;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 50%;
-  float: left;
+  background-size: 24px;
+
+  transition: background-color 0.15s ease;
 }
-nav button.menuButton:hover {
-  background-color: rgb(150, 180, 240);
-  cursor: pointer;
+
+nav button:hover {
+  background-color: #f3f4f6;
 }
-img {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-}
+
 div.titleLink {
-  position: relative;
-  overflow: hidden;
-  float: none;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 56px;
-  width: calc(100% - 168px);
-  display: block;
-  float: left;
+  padding-left: 56px;
 }
+
 div.titleLink a {
   text-decoration: none;
-  color: black;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  line-height: 56px;
-  font-size: 32px;
+  color: #111827;
+  font-size: 20px;
   font-weight: 700;
-  height: 56px;
-  width: 370px;
-  padding: 0 20px;
-  display: block;
-  overflow: hidden;
+
+  padding: 6px 12px;
+  border-radius: 8px;
+
+  transition: background-color 0.15s ease;
 }
+
 div.titleLink a:hover {
-  background-color: rgb(150, 180, 240);
-  text-decoration: underline;
-  cursor: pointer;
+  background-color: #f3f4f6;
 }
-nav button.profileIcon {
+
+ul.menu {
+  position: absolute;
+  top: 56px;
+  left: 0;
+
+  width: 220px;
+  margin: 0;
+  padding: 8px;
+
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 10px 10px;
+}
+
+ul.menu li a {
   display: block;
-  position: relative;
-  height: 56px;
-  width: 56px;
-  border: 0;
-  border-radius: 0;
-  background-color: cornflowerblue;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  float: right;
+  padding: 10px 12px;
+
+  text-decoration: none;
+  color: #111827;
+  font-size: 14px;
+
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
 }
-nav button.profileIcon:hover {
-  background-color: rgb(150, 180, 240);
-  cursor: pointer;
-}
-nav button.addPostIcon {
-  display: block;
-  position: relative;
-  height: 56px;
-  width: 56px;
-  border: 0;
-  border-radius: 0;
-  background-color: cornflowerblue;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  float: left;
-}
-nav button.addPostIcon:hover {
-  background-color: rgb(150, 180, 240);
-  cursor: pointer;
+
+ul.menu li a:hover {
+  background-color: #f3f4f6;
 }

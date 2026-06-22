@@ -3,17 +3,27 @@ import "./NotFoundPage.css";
 
 function NotFoundPage() {
   const location = useLocation();
-  const currentURL = `${window.location.origin}${location.pathname}${location.search}`;
+
+  const currentURL =
+    window.location.origin + location.pathname + location.search;
+
   return (
-    <div className="main">
-      <h1>
-        Strony po adresem: <br />
-        <span className="currentLinkName">{currentURL}</span>
-        <br /> niestety nie znaleziono
-      </h1>
-      <h2>
-        Wróć na <Link to="/">stronę główną</Link>
-      </h2>
+    <div className="notFoundPage">
+      <div className="notFoundCard">
+        <div className="errorBadge">404</div>
+
+        <h1 className="notFoundTitle">Strona nie została znaleziona</h1>
+
+        <p className="notFoundText">
+          Adres, który próbujesz otworzyć, nie istnieje lub został przeniesiony.
+        </p>
+
+        <div className="urlBox">{currentURL}</div>
+
+        <Link to="/" className="homeButton">
+          Wróć na stronę główną
+        </Link>
+      </div>
     </div>
   );
 }

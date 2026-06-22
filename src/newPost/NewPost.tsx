@@ -19,7 +19,7 @@ export default function NewPost() {
     username: "anonymous user",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
 

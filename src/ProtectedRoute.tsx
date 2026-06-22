@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { supabase } from "../utils/supabase";
 
 const ProtectedRoute = () => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -22,7 +23,11 @@ const ProtectedRoute = () => {
     return <div>Ładowanie...</div>;
   }
 
-  return authenticated ? <Outlet /> : <Navigate to="/" replace />;
+  return authenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to="login" state={{ from: location }} replace />
+  );
 };
 
 export default ProtectedRoute;

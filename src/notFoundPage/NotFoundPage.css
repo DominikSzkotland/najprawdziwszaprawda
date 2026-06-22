@@ -1,9 +1,99 @@
-div.main {
-  text-align: center;
-  position: relative;
+.notFoundPage {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  justify-content: center;
+
+  align-items: flex-start;
+
+  padding: 8vh 24px 24px;
+  padding-top: clamp(60px, 10vh, 120px);
+
+  background-color: #f9fafb;
 }
-span.currentLinkName {
+
+/* główna karta */
+.notFoundCard {
+  width: 100%;
+  max-width: 520px;
+
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 28px;
+  text-align: center;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* badge 404 */
+.errorBadge {
   display: inline-block;
-  max-width: 100%;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  background-color: #111827;
+  color: white;
+
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  margin-bottom: 12px;
+}
+
+/* tytuł */
+.notFoundTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+
+  margin: 0 0 10px 0;
+}
+
+/* opis */
+.notFoundText {
+  font-size: 14px;
+  color: #6b7280;
+
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* URL box */
+.urlBox {
+  font-size: 12px;
+  color: #6b7280;
+
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+
+  padding: 10px;
+  border-radius: 8px;
+
   word-break: break-all;
+
+  margin-bottom: 18px;
+}
+
+/* button-link */
+.homeButton {
+  display: inline-block;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #111827;
+  background-color: #f3f4f6;
+
+  padding: 10px 14px;
+  border-radius: 8px;
+
+  transition: background-color 0.15s ease;
+}
+
+.homeButton:hover {
+  background-color: #e5e7eb;
 }
