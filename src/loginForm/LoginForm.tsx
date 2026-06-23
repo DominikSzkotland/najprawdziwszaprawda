@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
+import VerifyEmail from "./verifyEmail/VerifyEmail";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,8 @@ const LoginForm = () => {
   const [loginOrSignup, setLoginOrSignup] = useState<"login" | "signup">(
     "login",
   );
-
+  const [awaitingVerification, setAwaitingVerification] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from.pathname || "/";
@@ -67,8 +69,8 @@ const LoginForm = () => {
         });
 
         if (error) throw error;
-
-        navigate("/profile");
+        setRegisteredEmail(email);
+        setAwaitingVerification(true);
       } catch (error) {
         setErrorMessage(
           "Rejestracja nie udana, sprawdź wymagania hasła i dane",
@@ -80,6 +82,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
+    setEmail("");
+    setPassword("");
+    setRepeatedPassword("");
+    setErrorMessage(null);
     if (loginOrSignup === "login") {
       setinfoMessage("Podaj swój mail i hasło aby się zalogować");
     } else {
@@ -89,14 +95,16 @@ const LoginForm = () => {
     }
   }, [loginOrSignup]);
 
-  if (loading) return <p>Loading...</p>;
-
   const Rule = ({ ok, text }: { ok: boolean; text: string }) => (
     <p style={{ color: ok ? "green" : "red" }}>
       {ok ? "✔" : "✖"} {text}
     </p>
   );
 
+  if (loading) return <p>Loading...</p>;
+  if (awaitingVerification) {
+    return <VerifyEmail email={registeredEmail} />;
+  }
   return (
     <div>
       <form onSubmit={handleSubmit}>

@@ -1,0 +1,113 @@
+.verifyPage {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 8vh 24px;
+  background: #f9fafb;
+}
+
+/* CARD */
+.verifyCard {
+  width: 100%;
+  max-width: 520px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 28px;
+  text-align: center;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* badge */
+.verifyBadge {
+  display: inline-block;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  background: #111827;
+  color: white;
+
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  margin-bottom: 12px;
+}
+
+/* title */
+.verifyTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+
+  margin-bottom: 10px;
+}
+
+/* text */
+.verifyText {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+
+  margin-bottom: 10px;
+}
+
+/* email highlight */
+.verifyEmail {
+  display: inline-block;
+
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  font-size: 13px;
+  color: #111827;
+
+  margin-bottom: 14px;
+
+  word-break: break-all;
+}
+
+/* button */
+.verifyButton {
+  width: 100%;
+  margin-top: 10px;
+
+  padding: 10px 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.verifyButton:hover {
+  background: #1f2937;
+}
+
+.verifyButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* message */
+.verifyMessage {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6b7280;
+}
