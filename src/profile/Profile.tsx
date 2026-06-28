@@ -1,26 +1,68 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { supabase } from "../../utils/supabase";
-import { useNavigate } from "react-router-dom";
+
+import AlienProfileCard from "./alienProfileCard/AlienProfileCard";
+import MyProfile from "./myProfile/MyProfile";
+
+interface ProfileData {
+  id: string;
+  profile_name: string;
+  display_name: string;
+  avatar_url: string;
+  date_of_birth: string;
+}
 
 function Profile() {
-  const navigate = useNavigate();
+  const { profileName } = useParams();
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
+  const [profile, setProfile] = useState<ProfileData | null>(null);
+  const [isOwner, setIsOwner] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    if (error) {
-      console.error("Błąd podczas wylogowywania:", error.message);
-    } else {
-      navigate("/");
-    }
-  };
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        setLoading(true);
 
-  return (
-    <div>
-      <p>To twój profil - Jesteś zalogowany</p>
-      <button onClick={handleLogout} className="logout-button">
-        Wyloguj się
-      </button>
-    </div>
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+
+        if (userError) throw userError;
+        if (!user) return;
+
+        const profileNameToLoad = profileName ?? user.id;
+
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq(profileName ? "profile_name" : "id", profileNameToLoad)
+          .single();
+
+        if (error) throw error;
+
+        setProfile(data);
+
+        setIsOwner(user.id === data.id);
+      } catch (error) {
+        console.error("Błąd podczas pobierania profilu:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
+  }, [profileName]);
+
+  if (loading) return <p>Ładowanie...</p>;
+  if (!profile) return <p>Nie znaleziono profilu</p>;
+
+  return isOwner ? (
+    <MyProfile profile={profile} />
+  ) : (
+    <AlienProfileCard profile={profile} />
   );
 }
 
